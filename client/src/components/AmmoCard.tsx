@@ -4,6 +4,8 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+
 import {
     Button,
     TableCell,
@@ -17,7 +19,7 @@ import Icon from "@mui/material/Icon";
 
 interface IAmmoCardData {
     id: number;
-    name: string;
+    productLine: string;
     manufacturer: string;
     ammoType: string;
     grainWeight: number;
@@ -32,15 +34,26 @@ function AmmoCard(props: IAmmoCardData) {
             <CardActionArea>
                 <CardHeader
                     title={props.manufacturer}
-                    subheader={props.name}
-                ></CardHeader>
-                <CardMedia
-                    component="img"
-                    height="100"
-                    image={props.imageURL}
-                    alt={props.name}
-                    sx={{ objectFit: "contain", objectPosition: "center" }}
-                ></CardMedia>
+                    subheader={props.productLine}
+                />
+                {props.imageURL ? (
+                    <CardMedia
+                        component="img"
+                        height="100"
+                        image={props.imageURL}
+                        alt={props.productLine}
+                        sx={{ objectFit: "contain", objectPosition: "center" }}
+                    />
+                ) : (
+                    <QuestionMarkIcon
+                        color="warning"
+                        sx={{
+                            fontSize: 100,
+                            display: "block",
+                            margin: "5px auto",
+                        }}
+                    />
+                )}
                 <CardContent>
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 200 }} size="small">

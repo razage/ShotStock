@@ -14,8 +14,9 @@ export const resolvers = {
                 .createQueryBuilder("cartridge")
                 .leftJoinAndSelect("cartridge.manufacturer", "manufacturer")
                 .leftJoinAndSelect("cartridge.ammoType", "ammoType")
+                .leftJoinAndSelect("cartridge.bulletType", "bulletType")
                 .orderBy("manufacturer.name", "ASC")
-                .addOrderBy("cartridge.name", "ASC")
+                .addOrderBy("cartridge.productLine", "ASC")
                 .getMany();
         },
     },

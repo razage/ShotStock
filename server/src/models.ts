@@ -4,6 +4,8 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
     ManyToOne,
+    CreateDateColumn,
+    JoinColumn,
 } from "typeorm";
 
 // All the tables need an id column. Why repeat myself?
@@ -50,13 +52,25 @@ export class AmmoTypeAlias extends BaseTable {
     alias!: string;
 }
 
+@Entity("bullet_types")
+export class BulletType extends BaseTable {
+    @Column("varchar", { length: 32 })
+    name!: string;
+
+    @Column("varchar", { length: 32, nullable: true })
+    short?: string;
+
+    @OneToMany(
+        () => CommercialCartridge,
+        (commercialCartridge) => commercialCartridge.bulletType
+    )
+    productsWithBullet?: CommercialCartridge[];
+}
+
 @Entity("commercial_cartridges")
 export class CommercialCartridge extends BaseTable {
     @Column("varchar", { length: 64, nullable: true })
-    name?: string;
-
-    @Column("varchar", { length: 64 })
-    bulletType!: string;
+    productLine?: string;
 
     @Column("int")
     bulletWeight!: number;
@@ -83,4 +97,52 @@ export class CommercialCartridge extends BaseTable {
         }
     )
     manufacturer!: Manufacturer;
+
+    @ManyToOne(() => BulletType, (bt) => bt.productsWithBullet, {
+        nullable: false,
+        onDelete: "CASCADE",
+    })
+    bulletType!: BulletType;
+}
+
+// Authentication and Login System
+@Entity("users")
+export class User {
+    @PrimaryGeneratedColumn("uuid")
+    id!: string;
+
+    @Column("varchar", { unique: true })
+    email!: string;
+
+    @Column({
+        type: "enum",
+        enum: ["user", "mod", "admin"],
+        default: "user",
+    })
+    role!: "user" | "mod" | "admin";
+
+    @CreateDateColumn()
+    createdAt!: Date;
+
+    @Column({ type: "timestamp", nullable: true })
+    lastLogin!: Date | null;
+}
+
+@Entity("sessions")
+export class Session {
+    @PrimaryGeneratedColumn("uuid")
+    id!: string;
+
+    @ManyToOne(() => User, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "user_id" })
+    user!: User;
+
+    @Column()
+    user_id!: string;
+
+    @Column({ type: "timestamp" })
+    expiresAt!: Date;
+
+    @CreateDateColumn()
+    createdAt!: Date;
 }

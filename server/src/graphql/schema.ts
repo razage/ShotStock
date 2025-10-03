@@ -20,10 +20,16 @@ export const typeDefs = gql`
         alias: String!
     }
 
+    type BulletType {
+        id: ID!
+        name: String!
+        short: String
+    }
+
     type CommercialCartridge {
         id: ID!
-        name: String
-        bulletType: String!
+        productLine: String
+        bulletType: BulletType!
         bulletWeight: Int!
         caseMaterial: String!
         ammoType: AmmoType!

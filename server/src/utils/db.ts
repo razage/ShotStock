@@ -14,8 +14,11 @@ export const AppDataSource = new DataSource({
     entities: [
         models.AmmoType,
         models.AmmoTypeAlias,
+        models.BulletType,
         models.CommercialCartridge,
         models.Manufacturer,
+        models.Session,
+        models.User,
     ],
     synchronize: true, // Dev only
     ssl: { rejectUnauthorized: false },

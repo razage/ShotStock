@@ -1,6 +1,6 @@
 {
     "name": "shotstock-server",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "An app for managing your ammo stockpile and developing loads.",
     "keywords": [
         "ammo",

@@ -7,8 +7,11 @@ const allCommercialCartridges = gql`
     query GetCommercialCartridges {
         commercialCartridges {
             id
-            name
-            bulletType
+            productLine
+            bulletType {
+                name
+                short
+            }
             bulletWeight
             caseMaterial
             imageURL
@@ -24,8 +27,8 @@ const allCommercialCartridges = gql`
 
 interface CommercialCartridge {
     id: number;
-    name: string;
-    bulletType: string;
+    productLine: string;
+    bulletType: { name: string; short?: string };
     bulletWeight: number;
     caseMaterial: string;
     ammoType: { name: string };
@@ -61,12 +64,12 @@ function BrowseAmmo() {
                 <Grid key={ammo.id} size={{ xs: 8, sm: 6, md: 4, lg: 3 }}>
                     <AmmoCard
                         id={ammo.id}
-                        name={ammo.name}
+                        productLine={ammo.productLine}
                         manufacturer={ammo.manufacturer.name}
                         imageURL={ammo.imageURL}
                         ammoType={ammo.ammoType.name}
                         grainWeight={ammo.bulletWeight}
-                        bulletType={ammo.bulletType}
+                        bulletType={ammo.bulletType.name}
                         caseMaterial={ammo.caseMaterial}
                     ></AmmoCard>
                 </Grid>
