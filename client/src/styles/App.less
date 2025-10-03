@@ -1,0 +1,41 @@
+#root {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: center;
+}
+
+.navbar {
+	#full-size-name {
+		transition-duration: 0.3s;
+		transition-timing-function: ease-out;
+
+		&:hover {
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+		}
+	}
+
+	a:hover {
+		color: @primary-color;
+	}
+
+	.navbutton {
+		transition-duration: 0.3s;
+		transition-timing-function: ease-out;
+
+		&:hover {
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+		}
+
+		&.active {
+			color: @secondary-color;
+			text-decoration: underline;
+
+			&:hover {
+				color: white;
+			}
+		}
+	}
+}

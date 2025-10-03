@@ -1,0 +1,35 @@
+{
+    "name": "shotstock-server",
+    "version": "0.1.1",
+    "description": "An app for managing your ammo stockpile and developing loads.",
+    "keywords": [
+        "ammo",
+        "ammunition"
+    ],
+    "license": "MIT",
+    "author": "Thomas Hinkle",
+    "private": true,
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "start": "ts-node-dev --respawn src/index.ts",
+        "build": "tsc",
+        "init_db": "ts-node scripts/init-db.ts"
+    },
+    "dependencies": {
+        "@apollo/server": "^5.0.0",
+        "dotenv": "^17.2.3",
+        "graphql": "^16.11.0",
+        "graphql-tag": "^2.12.6",
+        "mariadb": "^3.4.5",
+        "mysql": "^2.18.1",
+        "typeorm": "^0.3.27"
+    },
+    "devDependencies": {
+        "@types/dotenv": "^6.1.1",
+        "@types/node": "^24.6.1",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.9.3"
+    }
+}

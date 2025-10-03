@@ -1,0 +1,19 @@
+{
+    "name": "shotstock",
+    "version": "0.1.1",
+    "description": "An app for managing your ammo stockpile and developing loads.",
+    "keywords": [
+        "ammo",
+        "ammunition"
+    ],
+    "license": "MIT",
+    "author": "Thomas Hinkle",
+    "private": true,
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "reset:db": "cd server && npm run init_db",
+        "start:client": "cd client && npm run dev",
+        "start:server": "cd server && npm run start"
+    }
+}
