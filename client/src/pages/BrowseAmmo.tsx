@@ -1,3 +1,4 @@
+import "../styles/BrowseAmmo.less";
 import AmmoCard from "../components/AmmoCard";
 import { Grid, CircularProgress, Typography } from "@mui/material";
 import { gql } from "@apollo/client";
@@ -59,22 +60,28 @@ function BrowseAmmo() {
             </div>
         );
     return (
-        <Grid container spacing={2} sx={{ p: 2 }}>
-            {data?.commercialCartridges.map((ammo) => (
-                <Grid key={ammo.id} size={{ xs: 8, sm: 6, md: 4, lg: 3 }}>
-                    <AmmoCard
-                        id={ammo.id}
-                        productLine={ammo.productLine}
-                        manufacturer={ammo.manufacturer.name}
-                        imageURL={ammo.imageURL}
-                        ammoType={ammo.ammoType.name}
-                        grainWeight={ammo.bulletWeight}
-                        bulletType={ammo.bulletType.name}
-                        caseMaterial={ammo.caseMaterial}
-                    ></AmmoCard>
-                </Grid>
-            ))}
-        </Grid>
+        <div>
+            <Grid container spacing={2} sx={{ p: 2 }}>
+                {data?.commercialCartridges.map((ammo) => (
+                    <Grid key={ammo.id} size={{ xs: 8, sm: 6, md: 4, lg: 3 }}>
+                        <AmmoCard
+                            id={ammo.id}
+                            productLine={ammo.productLine}
+                            manufacturer={ammo.manufacturer.name}
+                            imageURL={ammo.imageURL}
+                            ammoType={ammo.ammoType.name}
+                            grainWeight={ammo.bulletWeight}
+                            bulletType={ammo.bulletType}
+                            caseMaterial={ammo.caseMaterial}
+                        ></AmmoCard>
+                    </Grid>
+                ))}
+            </Grid>
+            <Typography fontSize="8pt" color="textSecondary">
+                There are {data?.commercialCartridges.length} cartridges in the
+                database.
+            </Typography>
+        </div>
     );
 }
 

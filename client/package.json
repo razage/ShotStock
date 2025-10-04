@@ -1,12 +1,11 @@
 {
     "name": "shotstock-client",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "An app for managing your ammo stockpile and developing loads.",
     "keywords": [
         "ammo",
         "ammunition"
     ],
-    "license": "MIT",
     "author": "Thomas Hinkle",
     "private": true,
     "type": "module",

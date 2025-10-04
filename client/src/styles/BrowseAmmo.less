@@ -1,0 +1,40 @@
+.ammo-card {
+	img {
+		height: 175px;
+		object-fit: contain;
+		object-position: center;
+	}
+
+	.missing-image {
+		display: block;
+		border: 1px dashed @textDisabled-color;
+		margin: 5px auto;
+		font-size: 150px;
+		color: @textDisabled-color;
+	}
+
+	.shorthand {
+		color: @primary-color;
+
+		&:hover {
+			text-decoration: underline;
+			cursor: help;
+		}
+	}
+
+	.ammo-info {
+		min-width: 200px;
+
+		tr {
+			td {
+				padding: 5px 0;
+				font-weight: bold;
+				color: @secondary-color;
+
+				&:nth-child(even) {
+					color: @textSecondary-color;
+				}
+			}
+		}
+	}
+}
