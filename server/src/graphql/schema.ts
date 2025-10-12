@@ -40,5 +40,13 @@ export const typeDefs = gql`
     type Query {
         ammoTypes: [AmmoType!]!
         commercialCartridges: [CommercialCartridge!]!
+        filteredCommercialCartridges(
+            manufacturer: String
+            productLine: String
+            ammoType: String
+            bulletType: String
+            bulletWeight: Int
+            caseMaterial: String
+        ): [CommercialCartridge!]!
     }
 `;
