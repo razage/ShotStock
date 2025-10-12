@@ -1,5 +1,5 @@
 import { Formik, Form, Field } from "formik";
-import { TextField, Button, Typography } from "@mui/material";
+import { TextField, Button, Typography, Autocomplete } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -15,9 +15,18 @@ interface FilterValues {
     caseMaterial: string;
 }
 
+interface FilterOptions {
+    manufacturers: string[];
+    ammoTypes: string[];
+    bulletTypes: string[];
+}
+
 interface FilterFormProps {
     initialValues: FilterValues;
     onSubmit: (values: FilterValues) => void;
+    onReset: () => void;
+    filterOptions?: FilterOptions;
+    caseMaterials: string[];
 }
 
 const validationSchema = Yup.object({
@@ -29,7 +38,13 @@ const validationSchema = Yup.object({
     caseMaterial: Yup.string(),
 });
 
-function FilterForm({ initialValues, onSubmit }: FilterFormProps) {
+function FilterForm({
+    initialValues,
+    onSubmit,
+    onReset,
+    filterOptions,
+    caseMaterials,
+}: FilterFormProps) {
     return (
         <Formik
             initialValues={initialValues}
@@ -37,15 +52,19 @@ function FilterForm({ initialValues, onSubmit }: FilterFormProps) {
             enableReinitialize={true}
             onSubmit={(values) => {
                 onSubmit({
-                    ...values,
+                    manufacturer: values.manufacturer || "",
+                    productLine: values.productLine || "",
+                    ammoType: values.ammoType || "",
+                    bulletType: values.bulletType || "",
                     bulletWeight:
                         values.bulletWeight === ""
                             ? ""
                             : Number(values.bulletWeight),
+                    caseMaterial: values.caseMaterial,
                 });
             }}
         >
-            {({ errors, touched }) => (
+            {({ values, setFieldValue, errors, touched }) => (
                 <Accordion className="filter-form">
                     <AccordionSummary
                         expandIcon={<FilterAlt />}
@@ -58,15 +77,28 @@ function FilterForm({ initialValues, onSubmit }: FilterFormProps) {
                         <Form>
                             <Field
                                 name="manufacturer"
-                                as={TextField}
-                                label="Manufacturer"
-                                error={
-                                    touched.manufacturer &&
-                                    !!errors.manufacturer
+                                as={Autocomplete}
+                                options={filterOptions?.manufacturers || []}
+                                renderInput={(params: any) => (
+                                    <TextField
+                                        {...params}
+                                        label="Manufacturer"
+                                        error={
+                                            touched.manufacturer &&
+                                            !!errors.manufacturer
+                                        }
+                                        helperText={
+                                            touched.manufacturer &&
+                                            errors.manufacturer
+                                        }
+                                    />
+                                )}
+                                value={values.manufacturer || ""}
+                                onChange={(_: any, value: string | null) =>
+                                    setFieldValue("manufacturer", value || "")
                                 }
-                                helperText={
-                                    touched.manufacturer && errors.manufacturer
-                                }
+                                freeSolo
+                                fullWidth
                             />
                             <Field
                                 name="productLine"
@@ -81,26 +113,57 @@ function FilterForm({ initialValues, onSubmit }: FilterFormProps) {
                             />
                             <Field
                                 name="ammoType"
-                                as={TextField}
-                                label="Ammo Type"
-                                error={touched.ammoType && !!errors.ammoType}
-                                helperText={touched.ammoType && errors.ammoType}
+                                as={Autocomplete}
+                                options={filterOptions?.ammoTypes || []}
+                                renderInput={(params: any) => (
+                                    <TextField
+                                        {...params}
+                                        label="Ammo Type"
+                                        error={
+                                            touched.ammoType &&
+                                            !!errors.ammoType
+                                        }
+                                        helperText={
+                                            touched.ammoType && errors.ammoType
+                                        }
+                                    />
+                                )}
+                                value={values.ammoType || ""}
+                                onChange={(_: any, value: string | null) =>
+                                    setFieldValue("ammoType", value || "")
+                                }
+                                freeSolo
+                                fullWidth
                             />
                             <Field
                                 name="bulletType"
-                                as={TextField}
-                                label="Bullet Type"
-                                error={
-                                    touched.bulletType && !!errors.bulletType
+                                as={Autocomplete}
+                                options={filterOptions?.bulletTypes || []}
+                                renderInput={(params: any) => (
+                                    <TextField
+                                        {...params}
+                                        label="Bullet Type"
+                                        error={
+                                            touched.bulletType &&
+                                            !!errors.bulletType
+                                        }
+                                        helperText={
+                                            touched.bulletType &&
+                                            errors.bulletType
+                                        }
+                                    />
+                                )}
+                                value={values.bulletType || ""}
+                                onChange={(_: any, value: string | null) =>
+                                    setFieldValue("bulletType", value || "")
                                 }
-                                helperText={
-                                    touched.bulletType && errors.bulletType
-                                }
+                                freeSolo
+                                fullWidth
                             />
                             <Field
                                 name="bulletWeight"
                                 as={TextField}
-                                label="Bullet Weight (gr)"
+                                label="Bullet Weight (grains)"
                                 type="number"
                                 error={
                                     touched.bulletWeight &&
@@ -112,23 +175,46 @@ function FilterForm({ initialValues, onSubmit }: FilterFormProps) {
                             />
                             <Field
                                 name="caseMaterial"
-                                as={TextField}
-                                label="Case Material"
-                                error={
-                                    touched.caseMaterial &&
-                                    !!errors.caseMaterial
+                                as={Autocomplete}
+                                options={caseMaterials}
+                                renderInput={(params: any) => (
+                                    <TextField
+                                        {...params}
+                                        label="Case Material"
+                                        error={
+                                            touched.caseMaterial &&
+                                            !!errors.caseMaterial
+                                        }
+                                        helperText={
+                                            touched.caseMaterial &&
+                                            errors.caseMaterial
+                                        }
+                                    />
+                                )}
+                                value={values.caseMaterial || ""}
+                                onChange={(_: any, value: string | null) =>
+                                    setFieldValue("caseMaterial", value || "")
                                 }
-                                helperText={
-                                    touched.caseMaterial && errors.caseMaterial
-                                }
+                                freeSolo
+                                fullWidth
                             />
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                            >
-                                Apply Filters
-                            </Button>
+                            <div>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    Apply Filters
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="contained"
+                                    color="error"
+                                    onClick={onReset}
+                                >
+                                    Remove Filters
+                                </Button>
+                            </div>
                         </Form>
                     </AccordionDetails>
                 </Accordion>

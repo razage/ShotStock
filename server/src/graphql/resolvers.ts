@@ -12,12 +12,56 @@ interface FilterValues {
 
 export const resolvers = {
     Query: {
+        filterOptions: async () => {
+            const manufacturers = await AppDataSource.createQueryBuilder(
+                models.CommercialCartridge,
+                "cartridge"
+            )
+                .leftJoin("cartridge.manufacturer", "manufacturer")
+                .select("DISTINCT manufacturer.name", "name")
+                .orderBy("manufacturer.name", "ASC")
+                .getRawMany()
+                .then((results) => results.map((r) => r.name));
+
+            const ammoTypes = await AppDataSource.createQueryBuilder(
+                models.CommercialCartridge,
+                "cartridge"
+            )
+                .leftJoin("cartridge.ammoType", "ammoType")
+                .select("DISTINCT ammoType.name", "name")
+                .orderBy("ammoType.name", "ASC")
+                .getRawMany()
+                .then((results) => results.map((r) => r.name));
+
+            const bulletTypes = await AppDataSource.createQueryBuilder(
+                models.CommercialCartridge,
+                "cartridge"
+            )
+                .leftJoin("cartridge.bulletType", "bulletType")
+                .select("DISTINCT bulletType.name", "name")
+                .orderBy("bulletType.name", "ASC")
+                .getRawMany()
+                .then((results) => results.map((r) => r.name));
+
+            const output = { manufacturers, ammoTypes, bulletTypes };
+            return output;
+        },
+
         ammoTypes: async () => {
             return await AppDataSource.getRepository(models.AmmoType).find({
                 relations: ["aliases", "cartridges"],
             });
         },
-        commercialCartridges: async () => {
+
+        bulletTypes: async () => {
+            return await AppDataSource.getRepository(models.BulletType).find({
+                order: {
+                    name: "ASC",
+                },
+            });
+        },
+
+        commercialCartridges: async (_: any, args: any) => {
             const repo = AppDataSource.getRepository(
                 models.CommercialCartridge
             );
@@ -29,6 +73,7 @@ export const resolvers = {
                 },
             });
         },
+
         filteredCommercialCartridges: async (_: any, args: FilterValues) => {
             const repo = AppDataSource.getRepository(
                 models.CommercialCartridge

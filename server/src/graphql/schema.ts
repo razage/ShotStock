@@ -37,9 +37,18 @@ export const typeDefs = gql`
         imageURL: String
     }
 
+    type FilterOptions {
+        manufacturers: [String!]!
+        ammoTypes: [String!]!
+        bulletTypes: [String!]!
+    }
+
     type Query {
         ammoTypes: [AmmoType!]!
+        bulletTypes: [BulletType!]!
         commercialCartridges: [CommercialCartridge!]!
+        filterOptions: FilterOptions!
+        manufacturers: [Manufacturer!]!
         filteredCommercialCartridges(
             manufacturer: String
             productLine: String
