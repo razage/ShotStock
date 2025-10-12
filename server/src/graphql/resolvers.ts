@@ -17,26 +17,19 @@ export const resolvers = {
                 relations: ["aliases", "cartridges"],
             });
         },
-        // commercialCartridges: async () => {
-        //     return await AppDataSource.getRepository(models.CommercialCartridge)
-        //         .createQueryBuilder("cartridge")
-        //         .leftJoinAndSelect("cartridge.manufacturer", "manufacturer")
-        //         .leftJoinAndSelect("cartridge.ammoType", "ammoType")
-        //         .leftJoinAndSelect("cartridge.bulletType", "bulletType")
-        //         .orderBy("manufacturer.name", "ASC")
-        //         .addOrderBy("cartridge.productLine", "ASC")
-        //         .getMany();
-        // },
         commercialCartridges: async () => {
             const repo = AppDataSource.getRepository(
                 models.CommercialCartridge
             );
             return repo.find({
                 relations: ["ammoType", "manufacturer", "bulletType"],
+                order: {
+                    manufacturer: { name: "ASC" },
+                    productLine: "ASC",
+                },
             });
         },
         filteredCommercialCartridges: async (_: any, args: FilterValues) => {
-            console.log(args);
             const repo = AppDataSource.getRepository(
                 models.CommercialCartridge
             );
