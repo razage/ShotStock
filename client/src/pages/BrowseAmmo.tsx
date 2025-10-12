@@ -146,7 +146,7 @@ function BrowseAmmo() {
             <Typography variant="h4" gutterBottom>
                 Browse Ammo
             </Typography>
-            <FilterForm onSubmit={handleFilterSubmit} />
+            <FilterForm initialValues={filters} onSubmit={handleFilterSubmit} />
             <Grid container spacing={2} sx={{ mt: 2 }}>
                 {cartridges?.map((ammo) => (
                     <Grid key={ammo.id} size={{ xs: 8, sm: 6, md: 4, lg: 3 }}>
