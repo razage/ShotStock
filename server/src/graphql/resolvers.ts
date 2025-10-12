@@ -40,8 +40,8 @@ export const resolvers = {
                 .leftJoinAndSelect("cartridge.bulletType", "bulletType");
 
             if (args.manufacturer) {
-                query = query.andWhere("manufacturer.name = :manufacturer", {
-                    manufacturer: args.manufacturer,
+                query = query.andWhere("manufacturer.name LIKE :manufacturer", {
+                    manufacturer: `%${args.manufacturer}%`,
                 });
             }
 
