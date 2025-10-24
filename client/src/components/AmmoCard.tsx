@@ -5,7 +5,6 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import Tooltip from "@mui/material/Tooltip";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-
 import {
     Button,
     TableCell,
@@ -16,23 +15,13 @@ import {
     Paper,
 } from "@mui/material";
 import Icon from "@mui/material/Icon";
+import type { CommercialCartridge } from "../types/BrowseAmmo";
 
-interface IAmmoCardData {
-    id: number;
-    productLine: string;
-    manufacturer: string;
-    ammoType: string;
-    grainWeight: number;
-    bulletType: { name: string; short?: string };
-    caseMaterial: string;
-    imageURL: string;
-}
-
-function AmmoCard(props: IAmmoCardData) {
+function AmmoCard(props: CommercialCartridge) {
     return (
         <Card className="ammo-card">
             <CardHeader
-                title={props.manufacturer}
+                title={props.manufacturer.name}
                 subheader={props.productLine}
             />
             {props.imageURL ? (
@@ -50,7 +39,7 @@ function AmmoCard(props: IAmmoCardData) {
                         <TableBody>
                             <TableRow>
                                 <TableCell>Ammo Type</TableCell>
-                                <TableCell>{props.ammoType}</TableCell>
+                                <TableCell>{props.ammoType.name}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Bullet Type</TableCell>
@@ -72,7 +61,7 @@ function AmmoCard(props: IAmmoCardData) {
                             </TableRow>
                             <TableRow>
                                 <TableCell>Bullet Weight</TableCell>
-                                <TableCell>{props.grainWeight}</TableCell>
+                                <TableCell>{props.bulletWeight}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Case Material</TableCell>

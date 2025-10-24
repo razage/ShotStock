@@ -1,14 +1,6 @@
 import { AppDataSource } from "../utils/db";
 import * as models from "../models";
-
-interface FilterValues {
-    manufacturer?: string;
-    productLine?: string;
-    ammoType?: string;
-    bulletType?: string;
-    bulletWeight?: number;
-    caseMaterial?: string;
-}
+import { type FilterValues } from "../types/resolvers";
 
 export const resolvers = {
     Query: {

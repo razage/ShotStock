@@ -5,29 +5,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { FilterAlt } from "@mui/icons-material";
 import * as Yup from "yup";
-
-interface FilterValues {
-    manufacturer: string;
-    productLine: string;
-    ammoType: string;
-    bulletType: string;
-    bulletWeight: number | "";
-    caseMaterial: string;
-}
-
-interface FilterOptions {
-    manufacturers: string[];
-    ammoTypes: string[];
-    bulletTypes: string[];
-}
-
-interface FilterFormProps {
-    initialValues: FilterValues;
-    onSubmit: (values: FilterValues) => void;
-    onReset: () => void;
-    filterOptions?: FilterOptions;
-    caseMaterials: string[];
-}
+import { type FilterFormProps } from "../types/FilterForm";
 
 const validationSchema = Yup.object({
     manufacturer: Yup.string(),

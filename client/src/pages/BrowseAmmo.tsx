@@ -1,8 +1,13 @@
 import { useState, useMemo } from "react";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
-import { GraphQLError } from "graphql";
 import { Grid, CircularProgress, Typography, Box } from "@mui/material";
+import {
+    type ApolloError,
+    type FilterValues,
+    type QueryVariables,
+    type QueryData,
+} from "../types/BrowseAmmo";
 import FilterForm from "../components/FilterForm";
 import AmmoCard from "../components/AmmoCard";
 import "../styles/BrowseAmmo.less";
@@ -74,45 +79,6 @@ const GET_FILTER_OPTIONS = gql`
         }
     }
 `;
-
-interface FilterValues {
-    manufacturer: string;
-    productLine: string;
-    ammoType: string;
-    bulletType: string;
-    bulletWeight: number | "";
-    caseMaterial: string;
-}
-
-interface CommercialCartridge {
-    id: number;
-    productLine: string;
-    bulletType: { name: string; short?: string };
-    bulletWeight: number;
-    caseMaterial: string;
-    imageURL: string;
-    ammoType: { name: string };
-    manufacturer: { name: string };
-}
-
-interface QueryData {
-    commercialCartridges: CommercialCartridge[];
-    filteredCommercialCartridges: CommercialCartridge[];
-}
-
-interface QueryVariables {
-    manufacturer: string;
-    productLine: string;
-    ammoType: string;
-    bulletType: string;
-    bulletWeight: number | null;
-    caseMaterial: string;
-}
-
-interface ApolloError extends Error {
-    message: string;
-    graphQLErrors?: GraphQLError[];
-}
 
 function BrowseAmmo() {
     const [filters, setFilters] = useState<FilterValues>({
