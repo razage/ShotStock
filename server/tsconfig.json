@@ -14,7 +14,16 @@
         "outDir": "dist",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "types": ["node"]
+        "types": ["node"],
+
+        /* Paths */
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@graphql/*": ["src/graphql/*"],
+            "@types/*": ["src/types/*"],
+            "@utils/*": ["src/utils/*"]
+        }
     },
     "exclude": ["scripts"]
 }
