@@ -206,9 +206,6 @@ function BrowseAmmo() {
         );
     }
 
-    console.log("Cartridges to display:", cartridges);
-    console.log("Data structure:", JSON.stringify(data, null, 2));
-
     return (
         <Box sx={{ p: 2 }}>
             <Typography variant="h4" gutterBottom>

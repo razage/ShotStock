@@ -1,4 +1,3 @@
-// hooks/useCart.ts (updated)
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -88,18 +87,40 @@ export const useCart = create<CartStore>()(
                     addedAt: now,
                 }));
 
-                const existing = JSON.parse(
-                    localStorage.getItem("shotstock-inventory") || "[]"
-                );
+                let existing: InventoryEntry[] = [];
+
+                try {
+                    const raw = localStorage.getItem("shotstock-inventory");
+
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+
+                        if (Array.isArray(parsed)) {
+                            existing = parsed;
+                        } else {
+                            console.warn(
+                                "Corrupted inventory data detected. Resetting..."
+                            );
+                            existing = []; // Throws away "corrupted" data automatically
+                        }
+                    }
+                } catch (e) {
+                    console.error(
+                        "Failed to parse inventory from localStorage:",
+                        e
+                    );
+                }
+
+                const updated = [...existing, ...entries];
                 localStorage.setItem(
                     "shotstock-inventory",
-                    JSON.stringify([...existing, ...entries])
+                    JSON.stringify(updated)
                 );
 
                 set({ items: [] });
                 return entries;
             },
         }),
-        { name: "shotstock-inventory" }
+        { name: "shotstock-cart" }
     )
 );
