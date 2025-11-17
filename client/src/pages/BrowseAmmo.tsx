@@ -234,10 +234,10 @@ function BrowseAmmo() {
                         <AmmoCard
                             id={ammo.id}
                             productLine={ammo.productLine}
-                            manufacturer={ammo.manufacturer.name}
+                            manufacturer={ammo.manufacturer}
                             imageURL={ammo.imageURL}
-                            ammoType={ammo.ammoType.name}
-                            grainWeight={ammo.bulletWeight}
+                            ammoType={ammo.ammoType}
+                            bulletWeight={ammo.bulletWeight}
                             bulletType={ammo.bulletType}
                             caseMaterial={ammo.caseMaterial}
                         />
