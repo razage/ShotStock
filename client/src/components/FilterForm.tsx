@@ -5,7 +5,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { FilterAlt } from "@mui/icons-material";
 import * as Yup from "yup";
-import { type FilterFormProps } from "../types/FilterForm";
+import { type FilterFormProps } from "@types/FilterForm";
 
 const validationSchema = Yup.object({
     manufacturer: Yup.string(),

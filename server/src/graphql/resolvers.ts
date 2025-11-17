@@ -1,6 +1,6 @@
-import { AppDataSource } from "../utils/db";
+import { AppDataSource } from "@utils/db";
 import * as models from "../models";
-import { type FilterValues } from "../types/resolvers";
+import { type FilterValues } from "@types/resolvers";
 
 export const resolvers = {
     Query: {

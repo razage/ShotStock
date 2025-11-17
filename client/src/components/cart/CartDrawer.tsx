@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "@hooks/useCart";
 
 function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
     const { items, removeFromCart, clearCart, checkout } = useCart();

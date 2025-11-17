@@ -1,11 +1,12 @@
-import "./styles/App.less";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import NavBar from "./components/Navbar";
 import { Routes, Route } from "react-router";
-import BrowseAmmo from "./pages/BrowseAmmo";
 import { Typography } from "@mui/material";
-import CartFab from "./components/cart/CartFab";
+import NavBar from "@components/Navbar";
+import CartFab from "@components/cart/CartFab";
+import BrowseAmmo from "@pages/BrowseAmmo";
+import "@styles/App.less";
+import Inventory from "@pages/Inventory";
 
 function App() {
     const darkTheme = createTheme({
@@ -22,6 +23,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<div>Home</div>} />
                 <Route path="/ammo" element={<BrowseAmmo />} />
+                <Route path="/inventory" element={<Inventory />} />
                 <Route path="*" element={<Typography>Not Found</Typography>} />
             </Routes>
             <CartFab />

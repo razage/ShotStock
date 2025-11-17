@@ -7,10 +7,10 @@ import {
     type FilterValues,
     type QueryVariables,
     type QueryData,
-} from "../types/BrowseAmmo";
-import FilterForm from "../components/FilterForm";
-import AmmoCard from "../components/AmmoCard";
-import "../styles/BrowseAmmo.less";
+} from "@types/BrowseAmmo";
+import FilterForm from "@components/FilterForm";
+import AmmoCard from "@components/AmmoCard";
+import "@styles/BrowseAmmo.less";
 
 const ALL_COMMERCIAL_CARTRIDGES = gql`
     query GetCommercialCartridges {

@@ -15,8 +15,8 @@ import {
     Paper,
     IconButton,
 } from "@mui/material";
-import type { CommercialCartridge } from "../types/BrowseAmmo";
-import { useCart } from "../hooks/useCart";
+import type { CommercialCartridge } from "@types/BrowseAmmo";
+import { useCart } from "@hooks/useCart";
 
 function AmmoCard(props: CommercialCartridge) {
     const { addToCart } = useCart();
