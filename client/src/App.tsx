@@ -5,6 +5,7 @@ import NavBar from "./components/Navbar";
 import { Routes, Route } from "react-router";
 import BrowseAmmo from "./pages/BrowseAmmo";
 import { Typography } from "@mui/material";
+import CartFab from "./components/cart/CartFab";
 
 function App() {
     const darkTheme = createTheme({
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/ammo" element={<BrowseAmmo />} />
                 <Route path="*" element={<Typography>Not Found</Typography>} />
             </Routes>
+            <CartFab />
         </ThemeProvider>
     );
 }

@@ -5,19 +5,21 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import Tooltip from "@mui/material/Tooltip";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
-    Button,
     TableCell,
     TableRow,
     TableContainer,
     Table,
     TableBody,
     Paper,
+    IconButton,
 } from "@mui/material";
-import Icon from "@mui/material/Icon";
 import type { CommercialCartridge } from "../types/BrowseAmmo";
+import { useCart } from "../hooks/useCart";
 
 function AmmoCard(props: CommercialCartridge) {
+    const { addToCart } = useCart();
     return (
         <Card className="ammo-card">
             <CardHeader
@@ -61,7 +63,7 @@ function AmmoCard(props: CommercialCartridge) {
                             </TableRow>
                             <TableRow>
                                 <TableCell>Bullet Weight</TableCell>
-                                <TableCell>{props.bulletWeight}</TableCell>
+                                <TableCell>{props.bulletWeight}gr</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Case Material</TableCell>
@@ -72,9 +74,23 @@ function AmmoCard(props: CommercialCartridge) {
                 </TableContainer>
             </CardContent>
             <CardActions>
-                <Button size="small" color="success">
-                    <Icon color="success">add_circle</Icon>&nbsp;Add
-                </Button>
+                <IconButton
+                    color="success"
+                    onClick={() =>
+                        addToCart(props.id, 1, {
+                            primary: `${props.manufacturer.name} ${props.ammoType.name}`,
+                            secondary: [
+                                props.productLine?.trim(),
+                                props.bulletWeight && `${props.bulletWeight}gr`,
+                                props.bulletType.short ?? props.bulletType.name,
+                            ]
+                                .filter(Boolean)
+                                .join(" • "),
+                        })
+                    }
+                >
+                    <AddShoppingCartIcon />
+                </IconButton>
             </CardActions>
         </Card>
     );
